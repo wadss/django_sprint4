@@ -12,9 +12,17 @@ TEMPLATES_DIR = BASE_DIR / 'templates'
 SECRET_KEY = 'django-insecure-t6*g&80wk8ig+9jqj$du9$4e^q5f3(5p^v6bcv_ebzcvnrnmjz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_FAILURE_VIEW = 'pages.views.csrf_failure'
+
+LOGIN_REDIRECT_URL = '/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails' 
 
 ALLOWED_HOSTS = [
     'localhost',
