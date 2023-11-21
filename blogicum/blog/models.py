@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.urls import reverse
 
 from core.models import BaseModel
 
@@ -66,7 +65,10 @@ class Post(BaseModel):
         null=True,
         related_name='category_posts'
     )
-    image = models.ImageField('Изображение', blank=True)
+    image = models.ImageField('Изображение',
+                              blank=True,
+                              upload_to='post_images'
+                              )
 
     class Meta:
         verbose_name = 'публикация'
