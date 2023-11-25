@@ -5,7 +5,7 @@ from core.models import BaseModel
 
 
 TITLE_LEN = NAME_LEN = 256
-ADMIN_TITLE_LEN = 20
+STR_LEN = 20
 User = get_user_model()
 
 
@@ -24,7 +24,7 @@ class Category(BaseModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title[:ADMIN_TITLE_LEN]
+        return self.title[:STR_LEN]
 
 
 class Location(BaseModel):
@@ -35,7 +35,7 @@ class Location(BaseModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.name[:ADMIN_TITLE_LEN]
+        return self.name[:STR_LEN]
 
 
 class Post(BaseModel):
@@ -77,7 +77,7 @@ class Post(BaseModel):
         ordering = ['-pub_date']
 
     def __str__(self):
-        return self.title[:ADMIN_TITLE_LEN]
+        return self.title[:STR_LEN]
 
 
 class Comment(models.Model):
@@ -100,4 +100,4 @@ class Comment(models.Model):
         verbose_name_plural = 'комментарии'
 
     def __str__(self):
-        return self.text[:ADMIN_TITLE_LEN]
+        return self.text[:STR_LEN]
