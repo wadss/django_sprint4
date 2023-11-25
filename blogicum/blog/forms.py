@@ -1,21 +1,18 @@
 from django import forms
 
 from .models import Post, Comment, User
-from django.contrib.auth.forms import UserChangeForm
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = '__all__'
         exclude = ('author',)
         widgets = {
             'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
 
 
-class UpdateProfileForm(UserChangeForm):
-    email = forms.EmailField()
+class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = User

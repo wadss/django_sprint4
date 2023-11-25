@@ -5,6 +5,7 @@ from core.models import BaseModel
 
 
 TITLE_LEN = NAME_LEN = 256
+ADMIN_TITLE_LEN = 20
 User = get_user_model()
 
 
@@ -23,7 +24,7 @@ class Category(BaseModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title[:20]
+        return self.title[:ADMIN_TITLE_LEN]
 
 
 class Location(BaseModel):
@@ -34,7 +35,7 @@ class Location(BaseModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.name[:20]
+        return self.name[:ADMIN_TITLE_LEN]
 
 
 class Post(BaseModel):
@@ -49,21 +50,21 @@ class Post(BaseModel):
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор публикации',
-        related_name='author_posts'
+        related_name='post'
     )
     location = models.ForeignKey(
         Location,
         verbose_name='Местоположение',
         on_delete=models.SET_NULL,
         null=True,
-        related_name='location_posts'
+        related_name='post'
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         verbose_name='Категория',
         null=True,
-        related_name='category_posts'
+        related_name='post'
     )
     image = models.ImageField('Изображение',
                               blank=True,
@@ -76,7 +77,7 @@ class Post(BaseModel):
         ordering = ['-pub_date']
 
     def __str__(self):
-        return self.title[:20]
+        return self.title[:ADMIN_TITLE_LEN]
 
 
 class Comment(models.Model):
@@ -87,7 +88,16 @@ class Comment(models.Model):
         related_name='comments',
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
 
     class Meta:
         ordering = ('created_at',)
+        verbose_name = 'комментарий'
+        verbose_name_plural = 'комментарии'
+
+    def __str__(self):
+        return self.text[:ADMIN_TITLE_LEN]
